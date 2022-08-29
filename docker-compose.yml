@@ -12,6 +12,6 @@ services:
       - .:/bot
     command: python /bot/bot.py
     env_file:
-      - .env
+      - .envrc
     environment:
       TERM: xterm-color
