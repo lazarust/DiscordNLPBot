@@ -1,10 +1,10 @@
-FROM python/3.10-alpine3.16
+FROM python:3.10
 MAINTAINER Thomas Lazarus (Github: lazarust)
 
 ENV PYTHONUNUNBUFFERED 1
 
 RUN mkdir /bot
-WORKDIR /pot
+WORKDIR /bot
 # TODO: Some of these probably aren't necessary. Remove them.
 RUN apt-get update && \
     apt-get install -y curl \
@@ -14,6 +14,6 @@ RUN apt-get update && \
     wget
 
 COPY requirements.txt ./
-RUN pip install -r /requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .

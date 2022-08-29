@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/newssite
+      - .:/bot
     command: python /bot/bot.py
     env_file:
       - .env
