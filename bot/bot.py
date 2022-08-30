@@ -17,8 +17,8 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.type.name == "reply":
-        reply_thread = [f"{message.author}: {message.content}"]
+    if message.type.name == "reply" and message.content.startswith("/summarize"):
+        reply_thread = []
         m = message.reference.resolved
         while m is not None:
             reply_thread.append(f"{m.author}: {m.content}")
