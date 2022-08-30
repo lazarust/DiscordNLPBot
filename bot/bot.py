@@ -7,6 +7,11 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 
+def summarize(thread: list[str]) -> str:
+    # Implement Summarizing the thread
+    return str(thread)
+
+
 @client.event
 async def on_ready():
     print(f"We have logged in as {client.user}")
@@ -26,7 +31,7 @@ async def on_message(message):
                 m = await message.channel.fetch_message(m.reference.message_id)
             else:
                 m = None
-        await message.reply(list(reversed(reply_thread)))
+        await message.reply(summarize(list(reversed(reply_thread))))
 
 
 client.run(os.environ["DISCORD_SECRET"])

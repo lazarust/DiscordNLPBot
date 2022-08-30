@@ -10,7 +10,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/bot
-    command: python /bot/bot.py
+    command: python ./bot/bot.py
     env_file:
       - .envrc
     environment:
