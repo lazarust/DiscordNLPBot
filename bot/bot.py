@@ -1,5 +1,6 @@
 import discord
 import os
+import requests
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -8,8 +9,11 @@ client = discord.Client(intents=intents)
 
 
 def summarize(thread: list[str]) -> str:
+    headers = {"Authorization": f'Bearer {os.environ["INFERENCE_API_KEY"]}'}
     # Implement Summarizing the thread
-    return str(thread)
+    API_URL = f"https://api-inference.huggingface.co/models/google/pegasus-xsum"
+    response = requests.post(API_URL, headers=headers, json=str(thread))
+    return response.json()
 
 
 @client.event
