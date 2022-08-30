@@ -1,8 +1,8 @@
 version: "3.10"
 
 services:
-  web:
-    container_name: web
+  bot:
+    container_name: bot
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,8 +10,8 @@ services:
       - "8000:8000"
     volumes:
       - .:/bot
-    command: python /bot/bot.py
+    command: python ./bot/bot.py
     env_file:
-      - .env
+      - .envrc
     environment:
       TERM: xterm-color
