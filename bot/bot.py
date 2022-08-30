@@ -14,12 +14,19 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    print(message)
     if message.author == client.user:
         return
 
-    if message.content.startswith("$hello"):
-        await message.channel.send("Hello!")
+    if message.type.name == "reply":
+        reply_thread = [f"{message.author}: {message.content}"]
+        m = message.reference.resolved
+        while m is not None:
+            reply_thread.append(f"{m.author}: {m.content}")
+            if m.reference:
+                m = await message.channel.fetch_message(m.reference.message_id)
+            else:
+                m = None
+        await message.reply(list(reversed(reply_thread)))
 
 
 client.run(os.environ["DISCORD_SECRET"])
