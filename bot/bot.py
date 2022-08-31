@@ -19,7 +19,7 @@ def summarize(thread: list[str]) -> str:
         headers=headers,
         json={"inputs": str(thread), "options": {"wait_for_model": True}},
     )
-    summary_text = json.loads(response.content.decode("utf-8"))[0]["summary_textdcr"]
+    summary_text = json.loads(response.content.decode("utf-8"))[0]["summary_text"]
     return summary_text[: summary_text.find("    .")]
 
 
