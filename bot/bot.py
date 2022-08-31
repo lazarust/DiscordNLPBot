@@ -12,15 +12,15 @@ client = discord.Client(intents=intents)
 def summarize(thread: list[str]) -> str:
     headers = {"Authorization": f'Bearer {os.environ["INFERENCE_API_KEY"]}'}
     API_URL = (
-        f"https://api-inference.huggingface.co/models/philschmid/bart-large-cnn-samsum"
+        f"https://api-inference.huggingface.co/models/lidiya/bart-large-xsum-samsum"
     )
     response = requests.post(
         API_URL,
         headers=headers,
         json={"inputs": str(thread), "options": {"wait_for_model": True}},
     )
-    summary_text = json.loads(response.content.decode("utf-8"))[0]["summary_text"]
-    return summary_text[: summary_text.find("    .")]
+    summary_text = json.loads(response.content.decode("utf-8"))[0]["summary_text"].replace('"', "")
+    return summary_text
 
 
 @client.event
