@@ -7,12 +7,12 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
+headers = {"Authorization": f'Bearer {os.environ["INFERENCE_API_KEY"]}'}
 
 
 def summarize(thread: list[str]) -> str:
-    headers = {"Authorization": f'Bearer {os.environ["INFERENCE_API_KEY"]}'}
     API_URL = (
-        f"https://api-inference.huggingface.co/models/lidiya/bart-large-xsum-samsum"
+        "https://api-inference.huggingface.co/models/lidiya/bart-large-xsum-samsum"
     )
     response = requests.post(
         API_URL,
@@ -24,6 +24,24 @@ def summarize(thread: list[str]) -> str:
         "summary_text"
     ].replace('"', "")
     return summary_text
+
+
+def sentiment(message: str) -> str:
+    API_URL = "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment"
+    response = requests.post(
+        API_URL,
+        headers=headers,
+        json={"inputs": message, "options": {"wait_for_model": True}},
+    )
+    sentiment_dicts = {}
+    for dict in json.loads(response.content.decode("utf-8"))[0]:
+        if dict["label"] == "LABEL_0":
+            sentiment_dicts["Negative"] = round(dict["score"] * 100, 2)
+        elif dict["label"] == "LABEL_1":
+            sentiment_dicts["Neutral"] = round(dict["score"] * 100, 2)
+        elif dict["label"] == "LABEL_2":
+            sentiment_dicts["Positive"] = round(dict["score"] * 100, 2)
+    return str(sentiment_dicts)
 
 
 @client.event
@@ -46,6 +64,10 @@ async def on_message(message):
             else:
                 m = None
         await message.reply(summarize(list(reversed(reply_thread))))
+
+    if message.type.name == "reply" and message.content.startswith("/sentiment"):
+        m = message.reference.resolved
+        await message.reply(sentiment(m.content))
 
 
 client.run(os.environ["DISCORD_SECRET"])
