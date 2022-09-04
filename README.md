@@ -1,4 +1,4 @@
-<h1 align="center">Discord Summarization Bot</h1>
+<h1 align="center">Discord NLP Bot</h1>
 
 <p align="center">
     <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
@@ -14,6 +14,11 @@ export DISCORD_SECRET=<SET EQUAL TO DISCORD API TOKEN>
 export INFERENCE_API_KEY=<SET EQUAL TO HUGGINGFACE API TOKEN>
  ```
 4. Finally, starting up the bot is as simple as running `docker-compose up bot`.
+
+## Usage
+There are currently only two main functions/commands that are implemented both of them only work when used in a reply:
+1. `/summarize` This command sends all messages in the thread of replies and passes them though [this model](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) and returns a summary.
+2. `/sentiment` Similar to the previous command, but this only takes the most recent message, passes it to [this model](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) and returns a dictionary of sentiment predictions.
 
 ## Future Plans
 There are some upgrades I want to do to this bot including, creating a Slack version, and creating a Twitter version. If there are any other things
