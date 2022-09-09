@@ -75,7 +75,6 @@ async def on_message(message):
                 "Using the command `/sentiment` will return a dictionary of scores for if the message is Negative, Neutral, or Positive. The model used can be found at: https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment"
             )
         elif message.content.contains("summarize"):
-            # TODO: Add Summary explanation
             await message.reply(
                 "Using the command `/summarize` will return of a summary of all messages in a thread of replies. The model used can be found at https://huggingface.co/lidiya/bart-large-xsum-samsum"
             )
