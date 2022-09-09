@@ -69,5 +69,14 @@ async def on_message(message):
         m = message.reference.resolved
         await message.reply(sentiment(m.content))
 
+    if message.content.startswith("/help"):
+        if message.content.contains("sentiment"):
+            await message.reply(
+                "Using the command `/sentiment` will return a dictionary of scores for if the message is Negative, Neutral, or Positive. The model used can be found at: https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment"
+            )
+        elif message.content.contains("summarize"):
+            # TODO: Add Summary explanation
+            await message.reply("")
+
 
 client.run(os.environ["DISCORD_SECRET"])
