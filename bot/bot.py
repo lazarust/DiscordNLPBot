@@ -76,7 +76,9 @@ async def on_message(message):
             )
         elif message.content.contains("summarize"):
             # TODO: Add Summary explanation
-            await message.reply("")
+            await message.reply(
+                "Using the command `/summarize` will return of a summary of all messages in a thread of replies. The model used can be found at https://huggingface.co/lidiya/bart-large-xsum-samsum"
+            )
 
 
 client.run(os.environ["DISCORD_SECRET"])
