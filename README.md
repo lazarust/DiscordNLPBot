@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This repository is no longer maintained and is archived. 
+
 <h1 align="center">Discord NLP Bot</h1>
 
 <p align="center">
